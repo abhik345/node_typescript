@@ -1,0 +1,72 @@
+PORT=3000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=testdb
+DB_DIALECT=mysql
+
+
+
+
+
+installs 
+
+
+
+
+npm install express sequelize mysql2 dotenv cors
+npm install --save-dev typescript ts-node @types/express @types/node nodemon @types/cors
+
+
+
+
+
+file typescript
+
+
+
+
+mkdir node-ts-sequelize-mysql
+cd node-ts-sequelize-mysql
+npm init -y
+
+
+
+tsconfig.json 
+
+
+
+
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  }
+}
+
+
+
+node-ts-sequelize-mysql
+│── src
+│   ├── config
+│   │   ├── database.ts
+│   ├── models
+│   │   ├── index.ts
+│   │   ├── user.model.ts
+│   ├── controllers
+│   │   ├── user.controller.ts
+│   ├── routes
+│   │   ├── user.routes.ts
+│   ├── middleware
+│   │   ├── errorHandler.ts
+│   ├── app.ts
+│   ├── server.ts
+│── .env
+│── package.json
+│── tsconfig.json
+│── nodemon.json
