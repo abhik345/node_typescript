@@ -2,23 +2,22 @@ import { Request, Response } from "express";
 import Post from "../models/post.model";
 import User from "../models/user.model";  // ✅ Import User Model
 
-// Create a new post
-export const createPost = async (req: Request, res: Response) : Promise<void> => {
+export const createPost = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { title, content, userId } = req.body;
+    const { title, content, userId }: { title: string; content: string; userId: number } = req.body;
 
     if (!title || !content || !userId) {
-       res.status(400).json({ error: "All fields are required" });
+      res.status(400).json({ error: "All fields are required" });
     }
 
     const newPost = await Post.create({ title, content, userId });
-     res.status(201).json({
+    res.status(201).json({
       status: "201",
-      message: "Post created successfully"
-     });
+      message: "Post created successfully",
+    });
   } catch (error) {
     console.error("Error creating post:", error);
-     res.status(500).json({ error: "Error creating post" });
+    res.status(500).json({ error: "Error creating post" });
   }
 };
 
@@ -66,17 +65,11 @@ export const getPostById = async (req: Request, res: Response) : Promise<void> =
   }
 };
 
-/**
- * Updates a post by ID.
- * @param {Request} req - The request object.
- * @param {Response} res - The response object.
- * @param {string} req.params.id - The ID of the post to update.
- * @param {Partial<PostAttributes>} req.body - The updated post data.
- * @returns {Promise<void>}
- */
 
-
-export const updatePost = async (req: Request, res: Response): Promise<void> => {
+export const updatePost = async (
+  req: Request<{ id: string }, {}, { title?: string; content?: string; userId?: number }>,
+  res: Response<{ status: number; message: string; data?: Post }>
+): Promise<void> => {
   try {
     const { id } = req.params;
     const { title, content, userId } = req.body;
@@ -85,9 +78,9 @@ export const updatePost = async (req: Request, res: Response): Promise<void> => 
 
     if (!post) {
       res.status(404).json({
-        status: "404",
+        status: 404,
         message: "Post not found",
-      } as const);
+      });
       return;
     }
 
@@ -99,15 +92,15 @@ export const updatePost = async (req: Request, res: Response): Promise<void> => 
     await post.save();
 
     res.status(200).json({
-      status: "200",
+      status: 200,
       message: "Post updated successfully",
-      data: post,
-    } as const);
+      data: post, // Now allowed in the response type
+    });
   } catch (error: any) {
     res.status(500).json({
-      status: "500",
+      status: 500,
       message: error.message,
-    } as const);
+    });
   }
 };
 
