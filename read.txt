@@ -70,3 +70,73 @@ node-ts-sequelize-mysql
 │── package.json
 │── tsconfig.json
 │── nodemon.json
+
+
+
+
+
+Data Type	Storage (Bytes)	Details
+
+Integer Types		
+
+TINYINT	1 byte	Stores values from -128 to 127 (signed) or 0 to 255 (unsigned)
+
+SMALLINT	2 bytes	Stores values from -32,768 to 32,767 (signed)
+
+MEDIUMINT	3 bytes	Stores values from -8,388,608 to 8,388,607
+
+INT / INTEGER	4 bytes	Stores values from -2,147,483,648 to 2,147,483,647
+
+BIGINT	8 bytes	Stores values from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
+
+Floating-Point Types		
+
+FLOAT (4-byte)	4 bytes	Approximate decimal values, single-precision
+
+DOUBLE (8-byte)	8 bytes	Approximate decimal values, double-precision
+
+DECIMAL(M, D)	Varies	(M+2) bytes for M ≤ 9, (M+2) for M ≥ 10
+
+String Types		
+
+CHAR(n)	Fixed n bytes	Always uses n bytes (padded with spaces if shorter)
+
+VARCHAR(n)	Varies	Uses actual string size + 1 or 2 bytes for length
+
+TEXT	Varies	Uses actual string size + 2 bytes for length
+
+TINYTEXT	Up to 255 bytes	Uses actual size + 1 byte for length
+
+TEXT	Up to 64 KB	Uses actual size + 2 bytes for length
+
+MEDIUMTEXT	Up to 16 MB	Uses actual size + 3 bytes for length
+
+LONGTEXT	Up to 4 GB	Uses actual size + 4 bytes for length
+
+Date & Time Types		
+
+DATE	3 bytes	Stores YYYY-MM-DD
+
+DATETIME	8 bytes	Stores YYYY-MM-DD HH:MM:SS
+
+TIMESTAMP	4 bytes	Stores YYYY-MM-DD HH:MM:SS (UTC)
+
+TIME	3 bytes	Stores HH:MM:SS
+
+YEAR	1 byte	Stores YYYY (from 1901 to 2155)
+
+Boolean Type		
+
+BOOLEAN / BOOL	1 byte	Internally stored as TINYINT(1)
+
+Binary Types		
+
+BLOB	Varies	Same storage as TEXT types
+
+TINYBLOB	Up to 255 bytes	Uses actual size + 1 byte for length
+
+BLOB	Up to 64 KB	Uses actual size + 2 bytes for length
+
+MEDIUMBLOB	Up to 16 MB	Uses actual size + 3 bytes for length
+
+LONGBLOB	Up to 4 GB	Uses actual size + 4 bytes for length

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Post from "../models/post.model";
-import User from "../models/user.model";  // ✅ Import User Model
+import User from "../models/user.model";
 
 export const createPost = async (req: Request, res: Response): Promise<void> => {
   try {
