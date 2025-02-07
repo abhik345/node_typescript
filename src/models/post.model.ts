@@ -1,18 +1,24 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../config/database";
-import User from "./user.model"; // Import User model
+import User from "./user.model"; 
+
 
 interface PostAttributes {
-  id?: number;
+  id: number;
   title: string;
   content: string;
   userId: number;
 }
 
-// Define creation attributes separately to exclude `id`
+
 interface PostCreationAttributes extends Optional<PostAttributes, "id"> {}
 
-class Post extends Model<PostAttributes, PostCreationAttributes> {}
+class Post extends Model<PostAttributes, PostCreationAttributes> implements PostAttributes {
+  public id!: number; 
+  public title!: string;
+  public content!: string;
+  public userId!: number;
+}
 
 Post.init(
   {
@@ -36,7 +42,7 @@ Post.init(
         model: User,
         key: "id",
       },
-      onDelete: "CASCADE", 
+      onDelete: "CASCADE",
     },
   },
   {
@@ -46,7 +52,7 @@ Post.init(
   }
 );
 
-// Establish association
+// Establish associations
 User.hasMany(Post, { foreignKey: "userId", as: "posts" });
 Post.belongsTo(User, { foreignKey: "userId", as: "user" });
 
