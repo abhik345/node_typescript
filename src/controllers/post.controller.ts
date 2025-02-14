@@ -7,7 +7,7 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
     const { title, content, userId }: { title: string; content: string; userId: number } = req.body;
 
     if (!title || !content || !userId) {
-      res.status(400).json({ error: "All fields are required" });
+      res.status(400).json({ status : 400,message: "All fields are required" });
     }
 
     const newPost = await Post.create({ title, content, userId });
