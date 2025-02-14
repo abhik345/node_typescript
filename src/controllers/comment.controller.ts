@@ -34,16 +34,16 @@ export const createComment = async (
   }
 };
 
-export const getCommentsByUser = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const getComments = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { userId } = req.params;
-    const comments: Comment[] = await Comment.findAll({
-      where: {
-        userId,
-      },
+    const { postId, userId } = req.query;
+
+    const whereCondition: any = {};
+    if (postId) whereCondition.postId = postId;
+    if (userId) whereCondition.userId = userId;
+
+    const comments = await Comment.findAll({
+      where: whereCondition,
       attributes: ["id", "content"],
       include: [
         {
@@ -58,19 +58,15 @@ export const getCommentsByUser = async (
         },
       ],
     });
+
     if (comments.length === 0) {
-      res.status(404).json({
-        status: 404,
-        message: "No comments found",
-      });
+      res.status(404).json({ status: 404, message: "No comments found" });
       return;
     }
-    res.status(200).json({
-      status: 200,
-      message: "Comments fetched successfully",
-      data: comments,
-    });
+
+    res.status(200).json({ status: 200, message: "Comments fetched successfully", data: comments });
   } catch (error: any) {
     res.status(500).json({ status: 500, message: error.message });
   }
 };
+
