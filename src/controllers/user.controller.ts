@@ -93,3 +93,32 @@ export const getUserById = async (req: Request,res:Response) :Promise<void> =>{
   }
   
 }
+
+
+export const deleteUser = async (
+  req: Request<{ id: string }>,
+  res: Response
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const user: User | null = await User.findByPk(id);
+
+    if (!user) {
+      res.status(404).json({
+        status: "404",
+        message: "User not found",
+      });
+      return;
+    }
+    await user.destroy();
+    res.status(200).json({
+      status: "200",
+      message: "User deleted successfully",
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      status: "500",
+      message: error.message,
+    });
+  }
+};

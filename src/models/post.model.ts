@@ -4,7 +4,7 @@ import User from "./user.model";
 
 
 interface PostAttributes {
-  id: number;
+  id?: number;
   title: string;
   content: string;
   userId: number;

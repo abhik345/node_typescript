@@ -5,7 +5,7 @@ import Post from "./post.model";
 
 
 interface CommentAttributes {
-  id: number;
+  id?: number;
   content: string;
   postId: number;
   userId : number;

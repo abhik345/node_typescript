@@ -3,7 +3,7 @@ import { sequelize } from "../config/database";
 import Post from "./post.model";
 
 interface PostImageAttributes {
-    id: number;
+    id?: number;
     postId: number;
     imageUrl: string;
 }
