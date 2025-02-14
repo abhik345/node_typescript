@@ -26,8 +26,16 @@ export const createPost = async (req: Request, res: Response): Promise<void> => 
 // Get all posts (Include User Details)
 export const getAllPosts = async (req: Request, res: Response) : Promise<void> => {
   try {
-    const posts : Post[] = await Post.findAll({
-      include: [{ model: User, as: "user", attributes: ["id","name","email"] }],
+    const posts: Post[] = await Post.findAll({
+      attributes : ["id", "title", "content"],
+      include: [
+        { model: User, as: "user", attributes: ["id", "name", "email"] },
+        {
+          model: PostImage,
+          as: "postImages",
+          attributes: ["id", "imageUrl"],
+        },
+      ],
     });
     
     if(posts.length === 0){
