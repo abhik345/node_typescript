@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import Post from "../models/post.model";
 import User from "../models/user.model";
+import  PostImage  from "../models/postImage.model";
+import Comment from "../models/comments.model";
 
 export const createPost = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -47,7 +49,16 @@ export const getPostById = async (req: Request, res: Response) : Promise<void> =
   try {
     const { id } = req.params;
     const post : Post | null = await Post.findByPk(id, {
-      include: [{ model: User, as: "user", attributes: ["id","name","email"] }],
+      attributes: ["id", "title", "content"],
+      include: [{ model: User, as: "user", attributes: ["id","name","email"] },{
+        model: PostImage,
+        as: "postImages",
+        attributes: ["id", "imageUrl"],
+      },{
+        model : Comment,
+        as : "comments",
+        attributes: ["id", "content"],
+      }],
     });
 
     if (!post) {
