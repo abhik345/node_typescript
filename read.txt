@@ -31,6 +31,7 @@ cd node-ts-sequelize-mysql
 npm init -y
 
 
+npx tsc --init to create this file
 
 tsconfig.json 
 
